@@ -8,23 +8,52 @@ namespace Need2Park
 	[Activity (Label = "Need2Park", MainLauncher = true, Icon = "@mipmap/icon")]
 	public class MainActivity : Activity
 	{
-		int count = 1;
+		IMenuItem menuitem;
+		const int menuitemId = 0;
+
+		MenuPopupView menuPopup;
+		MainView contentView;
 
 		protected override void OnCreate (Bundle savedInstanceState)
 		{
-			Xamarin.Insights.Initialize (XamarinInsights.ApiKey, this);
+//			Xamarin.Insights.Initialize (XamarinInsights.ApiKey, this);
 			base.OnCreate (savedInstanceState);
 
 			DeviceInfo.Measure(this);
 
-			// Set our view from the "main" layout resource
-			SetContentView (Resource.Layout.Main);
-			// Get our button from the layout resource,
-			// and attach an event to it
-			Button button = FindViewById<Button> (Resource.Id.myButton);
-			button.Click += delegate {
-				button.Text = string.Format ("{0} clicks!", count++);
-			};
+			contentView = new MainView (this);
+			SetContentView (contentView);
+		}
+
+		public override bool OnCreateOptionsMenu (IMenu menu)
+		{
+			menuitem = menu.Add (Menu.None, menuitemId, Menu.None, "Open menu");
+//			menuitem.SetIcon (Resource.Drawable.icon_normal_filters);
+			menuitem.SetShowAsAction (ShowAsAction.Always);
+
+			if (menuPopup == null) {
+				InitMenuPopup();
+			}
+			return true;
+		}
+
+		public override bool OnMenuItemSelected (int featureId, IMenuItem item)
+		{
+			if (item.ItemId == menuitemId) {
+				ShowMenu ();
+				return true;
+			}
+			return base.OnMenuItemSelected (featureId, item);
+		}
+
+		void ShowMenu ()
+		{
+			menuPopup.ShowAnimated ();
+		}
+
+		void InitMenuPopup ()
+		{
+			menuPopup = new MenuPopupView (this, WindowManager);
 		}
 	}
 }

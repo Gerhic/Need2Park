@@ -25,7 +25,7 @@ namespace Need2Park
 
 		public static Android.Graphics.Point RealSize;
 
-		public static void Measure(Activity context)
+		public static void Measure (Activity context)
 		{
 		Resources resources = context.Resources;
 
