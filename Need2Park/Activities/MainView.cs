@@ -10,22 +10,33 @@ namespace Need2Park
 	{
 		HorizontalMenu horizontalMenu;
 		MapView mapView;
-		MapView mapView2;
+		MyPlacesView myPlacesView;
+		UIView contentContainer;
 
 		public MainView (Activity activity) : base (activity)
 		{
 			horizontalMenu = new HorizontalMenu (activity);
 
+			contentContainer = new UIView (activity);
+
 			mapView = new MapView (activity);
 			mapView.BackgroundColor = Color.Orange;
+			mapView.LayoutParameters = LayoutUtils.GetRelativeMatchParent ();
 
-			mapView2 = new MapView (activity);
-			mapView2.BackgroundColor = Color.AliceBlue;
+			myPlacesView = new MyPlacesView (activity);
+			myPlacesView.SetBackgroundColor (Color.AliceBlue);
+			myPlacesView.LayoutParameters = LayoutUtils.GetRelativeMatchParent ();
+
+			myPlacesView.TranslationX = DeviceInfo.ScreenWidth;
+
+			contentContainer.AddViews (
+				mapView,
+				myPlacesView
+			);
 
 			AddViews (
 				horizontalMenu,
-				mapView,
-				mapView2
+				contentContainer
 			);
 
 			Frame = new Frame (DeviceInfo.ScreenWidth, DeviceInfo.TrueScreenHeight);
@@ -36,9 +47,7 @@ namespace Need2Park
 		public override void LayoutSubviews ()
 		{
 			horizontalMenu.Frame = new Frame (Frame.W, Sizes.HorizontalMenuHeight);
-			mapView.Frame = new Frame (0, Sizes.HorizontalMenuHeight, Frame.W, Frame.H - Sizes.HorizontalMenuHeight);
-			mapView2.Frame = new Frame (0, Sizes.HorizontalMenuHeight, Frame.W, Frame.H - Sizes.HorizontalMenuHeight);
-			mapView2.TranslationX = Frame.W;
+			contentContainer.Frame = new Frame (0, Sizes.HorizontalMenuHeight, Frame.W, Frame.H - Sizes.HorizontalMenuHeight);
 		}
 
 		bool isMap1Open = true;
@@ -52,7 +61,7 @@ namespace Need2Park
 				transition2 = 0;
 			}
 			mapView.Animate ().TranslationX (transition1);
-			mapView2.Animate ().TranslationX (transition2);
+			myPlacesView.Animate ().TranslationX (transition2);
 			isMap1Open = !isMap1Open;
 		}
 	}

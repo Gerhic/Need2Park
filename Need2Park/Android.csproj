@@ -72,6 +72,15 @@
     <Compile Include="Views\HorizontalMenu.cs" />
     <Compile Include="Views\HorizontalMenuLabel.cs" />
     <Compile Include="Activities\MapView.cs" />
+    <Compile Include="Activities\MyPlacesView.cs" />
+    <Compile Include="Activities\UIListView.cs" />
+    <Compile Include="Activities\MyPlacesListAdapter.cs" />
+    <Compile Include="Activities\ParkingLotCell.cs" />
+    <Compile Include="Activities\UITableCell.cs" />
+    <Compile Include="Activities\ParkingLotCellLabel.cs" />
+    <Compile Include="Activities\ParkingLotActivity.cs" />
+    <Compile Include="Activities\PublicInfo.cs" />
+    <Compile Include="Activities\ParkingLotView.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />

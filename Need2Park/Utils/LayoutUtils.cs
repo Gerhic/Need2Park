@@ -20,7 +20,10 @@ namespace Need2Park
 
 			return parameters;
 		}
+		public static RelativeLayout.LayoutParams GetRelativeMatchParent ()
+		{
+			return new RelativeLayout.LayoutParams (ViewGroup.LayoutParams.MatchParent, ViewGroup.LayoutParams.MatchParent);
+		}
 	}
-
 }
 

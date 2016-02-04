@@ -38,6 +38,36 @@ namespace Need2Park
 				return GetRealSize (60);
 			}
 		}
+
+		public static int ParkingLotCellHeight {
+			get { 
+				return GetRealSize (70);
+			}
+		}
+
+		public static int ParkingLotCellLabelPadding {
+			get { 
+				return GetRealSize (10);
+			}
+		}
+
+		public static int ParkingViewVerticalPadding {
+			get { 
+				return GetRealSize (60);
+			}
+		}
+
+		public static int ParkingViewHorizontalPadding {
+			get { 
+				return GetRealSize (40);
+			}
+		}
+
+		public static int ParkingViewLabelHeight {
+			get { 
+				return GetRealSize (70);
+			}
+		}
 	}
 }
 
