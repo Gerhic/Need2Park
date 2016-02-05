@@ -2,6 +2,9 @@ using Android.App;
 using Android.Widget;
 using Android.OS;
 using Android.Views;
+using Android.Content;
+using Android.Preferences;
+using System.Collections.Generic;
 
 namespace Need2Park
 {
@@ -16,10 +19,11 @@ namespace Need2Park
 
 		protected override void OnCreate (Bundle savedInstanceState)
 		{
-//			Xamarin.Insights.Initialize (XamarinInsights.ApiKey, this);
 			base.OnCreate (savedInstanceState);
 
 			DeviceInfo.Measure(this);
+
+			GetActiveUserFromSharedPreferences ();
 
 			contentView = new MainView (this);
 			SetContentView (contentView);
@@ -54,6 +58,53 @@ namespace Need2Park
 		void InitMenuPopup ()
 		{
 			menuPopup = new MenuPopupView (this, WindowManager);
+		}
+
+		protected override void OnResume ()
+		{
+			base.OnResume ();
+			if (menuPopup != null) {
+				menuPopup.UpdateView ();
+			}
+		}
+
+		public async void GetActiveUserFromSharedPreferences ()
+		{
+			if (LoginState.ActiveUser == null) {
+				ISharedPreferences prefs = PreferenceManager.GetDefaultSharedPreferences (this); 
+				var name = prefs.GetString (UserInfo.NAME, string.Empty);
+				var sessionId = prefs.GetString (UserInfo.SESSIONID, string.Empty);
+
+				if (sessionId != string.Empty) {
+					LoginState.ActiveUser = new UserInfo {
+						Name = name,
+						SessionId = sessionId
+					};
+				}
+
+				List<ParkingLotInfo> parkingLotInfoList = await Networking.SendParkingLotsRequest ();
+				if (parkingLotInfoList != null) {
+					LoginState.ActiveUser.AccessInfo.AddRange (parkingLotInfoList);
+					contentView.UpdateViews ();
+				} else {
+					// TODO handle failing in life
+				}
+			}
+		}
+
+		public void ClearUserCache ()
+		{
+			ISharedPreferences prefs = PreferenceManager.GetDefaultSharedPreferences(this); 
+			ISharedPreferencesEditor editor = prefs.Edit();
+			editor.PutString (UserInfo.NAME, null);
+			editor.PutString (UserInfo.SESSIONID, null);
+			// TODO add the rest
+			editor.Apply();
+		}
+
+		public void HandeLogout ()
+		{
+			contentView.UpdateViews ();
 		}
 	}
 }

@@ -9,7 +9,7 @@ namespace Need2Park
 {
 	class HorizontalMenu : UIView
 	{
-		public EventHandler OnRandomEvent;
+		public EventHandler OnLabelClick;
 		HorizontalMenuLabel mapLabel;
 		HorizontalMenuLabel myListLabel;
 		UIView hilightBar;
@@ -94,8 +94,8 @@ namespace Need2Park
 				ActiveLabel = label;
 			}
 
-			if (OnRandomEvent != null) {
-				OnRandomEvent (new object (), null);
+			if (OnLabelClick != null) {
+				OnLabelClick (new object (), null);
 			}
 		}
 	}

@@ -4,6 +4,7 @@ using Android.OS;
 using Android.Views;
 using Android.Graphics;
 using System.Threading.Tasks;
+using Android.Content;
 
 namespace Need2Park
 {
@@ -16,8 +17,13 @@ namespace Need2Park
 		MenuButton LoginButton;
 		UIView buttonsContainer;
 
-		public MenuPopupView (Activity activity, IWindowManager WindowManager) : base (activity, WindowManager)
+		MainActivity activity;
+
+		UILabel userNameLabel;
+
+		public MenuPopupView (MainActivity activity, IWindowManager WindowManager) : base (activity, WindowManager)
 		{
+			this.activity = activity;
 			popupWidth = DeviceInfo.ScreenWidth;
 			TranslationX = -1 * popupWidth;
 
@@ -37,7 +43,6 @@ namespace Need2Park
 			);
 
 			LoginButton = new MenuButton (activity);
-			LoginButton.Text = Strings.Login;
 			LoginButton.Click += OnLoginClick;
 			int y = 0;
 			LoginButton.Frame = new Frame (
@@ -52,6 +57,7 @@ namespace Need2Park
 			buttonsContainer.AddViews (
 				LoginButton
 			);
+
 			buttonsContainer.Frame = new Frame (
 				Sizes.MenuButtonPadding,
 				(container.Frame.H - y) / 2,
@@ -59,11 +65,27 @@ namespace Need2Park
 				y
 			);
 
+			userNameLabel = new UILabel (activity);
+			userNameLabel.Gravity = GravityFlags.Center;
+			userNameLabel.Font = Font.Get (FontStyle.Serif, 10);
+			userNameLabel.TextColor = Color.Black;
+			userNameLabel.SetSingleLine ();
+			userNameLabel.Ellipsize = Android.Text.TextUtils.TruncateAt.End;
+			userNameLabel.Frame = new Frame (
+				Sizes.UserNameLabelPadding,
+				buttonsContainer.Frame.Y - Sizes.UserNameLabelHeight - Sizes.UserNameLabelPadding,
+				container.Frame.W - 2 * Sizes.UserNameLabelPadding,
+				Sizes.UserNameLabelHeight
+			);
+
 			container.AddViews (
-				buttonsContainer
+				buttonsContainer,
+				userNameLabel
 			);
 
 			AddViews (background, container);
+
+			UpdateView ();
 		}
 
 		public void ShowAnimated ()
@@ -83,11 +105,30 @@ namespace Need2Park
 
 		void OnLoginClick (object sender, System.EventArgs e)
 		{
-			LoginState.IsLoggedIn = !LoginState.IsLoggedIn;
-			if (LoginState.IsLoggedIn) {
-				LoginButton.Text = Strings.Logout;
+			if (LoginState.ActiveUser == null) {
+				Intent loginIntent = new Intent (activity, typeof(LoginActivity));
+				loginIntent.AddFlags (ActivityFlags.ClearTop);
+				activity.StartActivity (loginIntent);
 			} else {
-				LoginButton.Text = Strings.Login;
+				var user = LoginState.ActiveUser;
+				LoginState.ActiveUser = null;
+				Networking.SendLogoutRequest (user);
+				LoginButton.Text = "Login";
+				activity.ClearUserCache ();
+				userNameLabel.Visibility = ViewStates.Gone;
+				activity.HandeLogout ();
+			}
+		}
+
+		public void UpdateView ()
+		{
+			if (LoginState.ActiveUser != null) {
+				userNameLabel.Visibility = ViewStates.Visible;
+				userNameLabel.Text = "Logged in as: " + LoginState.ActiveUser.Name;
+				LoginButton.Text = "Logout";
+			} else {
+				userNameLabel.Visibility = ViewStates.Gone;
+				LoginButton.Text = "Login";
 			}
 		}
 	}

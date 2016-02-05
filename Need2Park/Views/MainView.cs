@@ -41,7 +41,7 @@ namespace Need2Park
 
 			Frame = new Frame (DeviceInfo.ScreenWidth, DeviceInfo.TrueScreenHeight);
 
-			horizontalMenu.OnRandomEvent += SwitchMap;
+			horizontalMenu.OnLabelClick += SwitchContent;
 		}
 
 		public override void LayoutSubviews ()
@@ -50,20 +50,28 @@ namespace Need2Park
 			contentContainer.Frame = new Frame (0, Sizes.HorizontalMenuHeight, Frame.W, Frame.H - Sizes.HorizontalMenuHeight);
 		}
 
-		bool isMap1Open = true;
-		void SwitchMap (object sender, System.EventArgs e)
+		bool isMapOpen = true;
+		void SwitchContent (object sender, System.EventArgs e)
 		{
+			if (isMapOpen) {
+				myPlacesView.UpdateList ();
+			}
+
 			int transition1 = 0;
 			int transition2 = Frame.W;
 
-			if (isMap1Open) {
+			if (isMapOpen) {
 				transition1 = -Frame.W;
 				transition2 = 0;
 			}
 			mapView.Animate ().TranslationX (transition1);
 			myPlacesView.Animate ().TranslationX (transition2);
-			isMap1Open = !isMap1Open;
+			isMapOpen = !isMapOpen;
+		}
+
+		public void UpdateViews ()
+		{
+			myPlacesView.UpdateList ();
 		}
 	}
-
 }

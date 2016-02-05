@@ -126,6 +126,14 @@ namespace Need2Park
 
 			Background = background;
 		}
+
+		public void SetCornerRadiusWithColor (Color backgroundColor, float[] arr)
+		{
+			GradientDrawable background = new GradientDrawable ();
+			background.SetCornerRadii (arr);
+			background.SetColor (backgroundColor);
+			Background = background;
+		}
 	}
 }
 

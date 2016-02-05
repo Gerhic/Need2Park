@@ -54,9 +54,22 @@ namespace Need2Park
 		}
 		#endregion
 
-		public void AddItems (List<ParkingLotInfo> items)
+		public void AddMissingItems (List<ParkingLotInfo> items)
 		{
-			infoList.AddRange (items);
+			foreach (var item in items) {
+				if (!infoList.Contains (item)) {
+					infoList.Add (item);
+				}
+			}
+			NotifyDataSetChanged ();
+		}
+
+		public void UpdateItems (List<ParkingLotInfo> accessInfo = null)
+		{
+			infoList.Clear ();
+			if (accessInfo != null) {
+				infoList.AddRange (accessInfo);
+			}
 			NotifyDataSetChanged ();
 		}
 	}

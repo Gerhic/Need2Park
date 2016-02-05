@@ -383,6 +383,14 @@ namespace Need2Park
 			}
 		}
 
+		public void SetRoundBordersWithColor (Color color, int currentSize, int strokeSize)
+		{
+			GradientDrawable outerBackground = new GradientDrawable ();
+			outerBackground.SetCornerRadius (currentSize);
+			outerBackground.SetStroke (strokeSize, color);
+
+			Background = outerBackground;
+		}
 	}
 }
 

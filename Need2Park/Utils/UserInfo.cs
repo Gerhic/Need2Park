@@ -5,11 +5,18 @@ namespace Need2Park
 {
 	public class UserInfo
 	{
+		public const string SESSIONID = "sessionId";
+		public const string NAME = "name";
+
+		public string SessionId { get; set; }
 		public string Name { get; set; }
+
 		public string Email { get; set; }
 		public string Phone { get; set; }
 		public string ImageUrl { get; set; }
 		public List<ParkingLotInfo> AccessInfo { get; set; }
+
+		public ParkingLotInfo ParkingLotInUse { get; set; }
 
 		public UserInfo ()
 		{

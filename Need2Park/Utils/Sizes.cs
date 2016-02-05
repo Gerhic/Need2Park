@@ -68,6 +68,42 @@ namespace Need2Park
 				return GetRealSize (70);
 			}
 		}
+
+		public static int LoginHorizontalPadding {
+			get { 
+				return GetRealSize (40);
+			}
+		}
+
+		public static int LoginInputHeight {
+			get { 
+				return GetRealSize (60);
+			}
+		}
+
+		public static int LoginInputPadding {
+			get { 
+				return GetRealSize (4);
+			}
+		}
+
+		public static int LoginSeparatorSize {
+			get {
+				return GetRealSize (1);
+			}
+		}
+
+		public static int UserNameLabelHeight {
+			get {
+				return GetRealSize (30);
+			}
+		}
+
+		public static int UserNameLabelPadding {
+			get {
+				return GetRealSize (10);
+			}
+		}
 	}
 }
 

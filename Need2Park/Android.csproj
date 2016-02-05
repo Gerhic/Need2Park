@@ -43,9 +43,7 @@
     <Reference Include="System.Xml" />
     <Reference Include="System.Core" />
     <Reference Include="Mono.Android" />
-    <Reference Include="Xamarin.Insights">
-      <HintPath>..\packages\Xamarin.Insights.1.11.3\lib\MonoAndroid10\Xamarin.Insights.dll</HintPath>
-    </Reference>
+    <Reference Include="System.Json" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Resources\Resource.designer.cs" />
@@ -65,28 +63,33 @@
     <Compile Include="Utils\LoginState.cs" />
     <Compile Include="Utils\UserInfo.cs" />
     <Compile Include="Utils\ParkingLotInfo.cs" />
-    <Compile Include="Views\LoginPopup.cs" />
     <Compile Include="Views\LoginView.cs" />
     <Compile Include="Views\Base\UITextField.cs" />
-    <Compile Include="Activities\MainView.cs" />
     <Compile Include="Views\HorizontalMenu.cs" />
     <Compile Include="Views\HorizontalMenuLabel.cs" />
-    <Compile Include="Activities\MapView.cs" />
-    <Compile Include="Activities\MyPlacesView.cs" />
-    <Compile Include="Activities\UIListView.cs" />
-    <Compile Include="Activities\MyPlacesListAdapter.cs" />
-    <Compile Include="Activities\ParkingLotCell.cs" />
-    <Compile Include="Activities\UITableCell.cs" />
-    <Compile Include="Activities\ParkingLotCellLabel.cs" />
     <Compile Include="Activities\ParkingLotActivity.cs" />
-    <Compile Include="Activities\PublicInfo.cs" />
-    <Compile Include="Activities\ParkingLotView.cs" />
+    <Compile Include="Activities\LoginActivity.cs" />
+    <Compile Include="Views\MainView.cs" />
+    <Compile Include="Views\MapView.cs" />
+    <Compile Include="Views\MyPlacesView.cs" />
+    <Compile Include="Views\ParkingLotCell.cs" />
+    <Compile Include="Views\ParkingLotCellLabel.cs" />
+    <Compile Include="Views\ParkingLotView.cs" />
+    <Compile Include="Adapters\MyPlacesListAdapter.cs" />
+    <Compile Include="Utils\PublicInfo.cs" />
+    <Compile Include="Views\Base\UITableCell.cs" />
+    <Compile Include="Views\Base\UIListView.cs" />
+    <Compile Include="Networking\Networking.cs" />
+    <Compile Include="Networking\LoginRequest.cs" />
+    <Compile Include="Networking\LoginResponse.cs" />
+    <Compile Include="Networking\Codec.cs" />
+    <Compile Include="Networking\Response.cs" />
+    <Compile Include="Views\DialogUtils.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
     <None Include="Properties\AndroidManifest.xml" />
     <None Include="Assets\AboutAssets.txt" />
-    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\layout\Main.axml" />
@@ -104,7 +107,8 @@
     <Folder Include="Utils\" />
     <Folder Include="Views\" />
     <Folder Include="Views\Base\" />
+    <Folder Include="Adapters\" />
+    <Folder Include="Networking\" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
-  <Import Project="..\packages\Xamarin.Insights.1.11.3\build\MonoAndroid10\Xamarin.Insights.targets" Condition="Exists('..\packages\Xamarin.Insights.1.11.3\build\MonoAndroid10\Xamarin.Insights.targets')" />
 </Project>
