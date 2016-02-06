@@ -96,6 +96,8 @@ namespace Need2Park
 			BackgroundColor = Color.Transparent;
 
 			Gravity = GravityFlags.CenterVertical;
+			
+			Font = Font.GetLato (Sizes.GetRealSize (14));
 		}
 
 		public virtual void LayoutSubviews ()

@@ -15,21 +15,8 @@ namespace Need2Park
 		{
 			defaultTextColor = TextColor;
 			Gravity = GravityFlags.Center;
-			SetBold (false);
-			TextColor = Color.White;
-		}
-
-		public void SetBold (bool b)
-		{
-//			if (b) {
-//				TextColor = Color.White;
-//			} else {
-//				TextColor = defaultTextColor;
-//			}
-			Font = Font.Get (FontStyle.Serif, 10);
+			TextColor = CustomColors.DarkColor;
+			TextSize = Sizes.GetRealSize (10);
 		}
 	}
-
-
-
 }

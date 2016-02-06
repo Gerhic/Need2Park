@@ -15,16 +15,15 @@ namespace Need2Park
 
 		public MainView (Activity activity) : base (activity)
 		{
+			BackgroundColor = CustomColors.LightColor;
 			horizontalMenu = new HorizontalMenu (activity);
 
 			contentContainer = new UIView (activity);
 
 			mapView = new MapView (activity);
-			mapView.BackgroundColor = Color.Orange;
 			mapView.LayoutParameters = LayoutUtils.GetRelativeMatchParent ();
 
 			myPlacesView = new MyPlacesView (activity);
-			myPlacesView.SetBackgroundColor (Color.AliceBlue);
 			myPlacesView.LayoutParameters = LayoutUtils.GetRelativeMatchParent ();
 
 			myPlacesView.TranslationX = DeviceInfo.ScreenWidth;

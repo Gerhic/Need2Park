@@ -8,7 +8,7 @@ using Android.Content;
 
 namespace Need2Park
 {
-	[Activity]
+	[Activity (ScreenOrientation = Android.Content.PM.ScreenOrientation.Portrait)]
 	public class ParkingLotActivity : Activity
 	{
 		ParkingLotInfo parkingLotInfo;

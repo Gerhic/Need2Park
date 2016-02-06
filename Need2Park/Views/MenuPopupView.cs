@@ -10,7 +10,7 @@ namespace Need2Park
 {
 	class MenuPopupView : PopupView
 	{
-		UIView background;
+		UIView closeTouchableArea;
 		UIView container;
 		int popupWidth;
 
@@ -21,14 +21,20 @@ namespace Need2Park
 
 		UILabel userNameLabel;
 
+		UIView backgroundView;
+
 		public MenuPopupView (MainActivity activity, IWindowManager WindowManager) : base (activity, WindowManager)
 		{
+			backgroundView = new UIView (activity);
+			backgroundView.BackgroundColor = Color.Black;
+			backgroundView.Alpha = 0;
+			backgroundView.Frame = new Frame (DeviceInfo.ScreenWidth, DeviceInfo.ScreenHeight);
+
 			this.activity = activity;
 			popupWidth = DeviceInfo.ScreenWidth;
-			TranslationX = -1 * popupWidth;
 
-			background = new UIView (activity);
-			background.Frame = new Frame (
+			closeTouchableArea = new UIView (activity);
+			closeTouchableArea.Frame = new Frame (
 				(int)(popupWidth * 0.8), 
 				0, 
 				(int)(popupWidth * 0.2), 
@@ -36,11 +42,12 @@ namespace Need2Park
 			);
 
 			container = new UIView (activity);
-			container.BackgroundColor = Color.Aqua;
+			container.BackgroundColor = CustomColors.DarkColor;
 			container.Frame = new Frame (
 				(int)(popupWidth * 0.8), 
 				DeviceInfo.ScreenHeight
 			);
+			container.TranslationX = -1 * popupWidth;
 
 			LoginButton = new MenuButton (activity);
 			LoginButton.Click += OnLoginClick;
@@ -67,8 +74,10 @@ namespace Need2Park
 
 			userNameLabel = new UILabel (activity);
 			userNameLabel.Gravity = GravityFlags.Center;
-			userNameLabel.Font = Font.Get (FontStyle.Serif, 10);
-			userNameLabel.TextColor = Color.Black;
+			userNameLabel.Typeface = Typeface.CreateFromAsset(activity.Assets, "fonts/Lato-Bold.ttf");
+			userNameLabel.TextSize = Sizes.GetRealSize (10);
+
+			userNameLabel.TextColor = CustomColors.LightColor;
 			userNameLabel.SetSingleLine ();
 			userNameLabel.Ellipsize = Android.Text.TextUtils.TruncateAt.End;
 			userNameLabel.Frame = new Frame (
@@ -83,7 +92,11 @@ namespace Need2Park
 				userNameLabel
 			);
 
-			AddViews (background, container);
+			AddViews (
+				backgroundView,
+				closeTouchableArea, 
+				container
+			);
 
 			UpdateView ();
 		}
@@ -91,14 +104,16 @@ namespace Need2Park
 		public void ShowAnimated ()
 		{
 			AddToActivity ();
-			Animate ().TranslationX (0);
-			background.Touch += CloseAnimated;
+			container.Animate ().TranslationX (0);
+			backgroundView.Animate ().Alpha (0.5f);
+			closeTouchableArea.Touch += CloseAnimated;
 		}
 
 		async void CloseAnimated (object sender, System.EventArgs e)
 		{
-			background.Touch -= CloseAnimated;
-			Animate ().TranslationX (-1 * popupWidth);
+			closeTouchableArea.Touch -= CloseAnimated;
+			container.Animate ().TranslationX (-1 * popupWidth);
+			backgroundView.Animate ().Alpha (0);
 			await Task.Delay (animationDurationMs);
 			RemoveFromActivity ();
 		}
@@ -124,7 +139,7 @@ namespace Need2Park
 		{
 			if (LoginState.ActiveUser != null) {
 				userNameLabel.Visibility = ViewStates.Visible;
-				userNameLabel.Text = "Logged in as: " + LoginState.ActiveUser.Name;
+				userNameLabel.Text = "USER: " + LoginState.ActiveUser.Name;
 				LoginButton.Text = "Logout";
 			} else {
 				userNameLabel.Visibility = ViewStates.Gone;

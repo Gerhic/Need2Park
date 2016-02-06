@@ -85,6 +85,12 @@
     <Compile Include="Networking\Codec.cs" />
     <Compile Include="Networking\Response.cs" />
     <Compile Include="Views\DialogUtils.cs" />
+    <Compile Include="Utils\CustomColors.cs" />
+    <Compile Include="Views\Base\UIImageView.cs" />
+    <Compile Include="Views\UILabelButton.cs" />
+    <Compile Include="Activities\SplashActivity.cs" />
+    <Compile Include="Activities\SplashView.cs" />
+    <Compile Include="Views\LoaderView.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
@@ -100,6 +106,16 @@
     <AndroidResource Include="Resources\mipmap-xxhdpi\Icon.png" />
     <AndroidResource Include="Resources\mipmap-xxxhdpi\Icon.png" />
     <AndroidResource Include="Resources\drawable\SearchCursor.xml" />
+    <AndroidResource Include="Resources\drawable\map.png" />
+    <AndroidResource Include="Resources\drawable\map_tag.png" />
+    <AndroidResource Include="Resources\drawable\taust1_1024.png" />
+    <AndroidResource Include="Resources\drawable\landing_backg.jpg" />
+    <AndroidResource Include="Resources\drawable\esilehe_logo.png" />
+    <AndroidResource Include="Resources\drawable\ylemine_logo.png" />
+    <AndroidResource Include="Resources\values\Styles.xml" />
+    <AndroidResource Include="Resources\drawable\burger.png" />
+    <AndroidResource Include="Resources\drawable\loadingscreendot.gif" />
+    <AndroidResource Include="Resources\drawable\esileht_logoga.png" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\drawable\" />
@@ -109,6 +125,10 @@
     <Folder Include="Views\Base\" />
     <Folder Include="Adapters\" />
     <Folder Include="Networking\" />
+    <Folder Include="Assets\fonts\" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
+  <ItemGroup>
+    <AndroidAsset Include="Assets\fonts\Lato-Bold.ttf" />
+  </ItemGroup>
 </Project>

@@ -9,9 +9,11 @@ namespace Need2Park
 {
 	class LoginView : UIView
 	{
+		UIImageView backgroundImage;
+
 		UITextField emailInput;
 		UITextField passwordInput;
-		UILabel loginButton;
+		UILabelButton loginButton;
 
 		UIView inputContainer;
 		UIView separator;
@@ -20,28 +22,43 @@ namespace Need2Park
 
 		LoginActivity activity;
 
+		LoaderView loaderView;
+
 		public LoginView (LoginActivity activity) : base (activity)
 		{
 			this.activity = activity;
-			BackgroundColor = Color.LightSeaGreen;
+
+			backgroundImage = new UIImageView (activity);
+			backgroundImage.ImageResource = Resource.Drawable.landing_backg;
+			backgroundImage.SetScaleType (Android.Widget.ImageView.ScaleType.CenterCrop);
+			backgroundImage.LayoutParameters = LayoutUtils.GetRelativeMatchParent ();
 
 			inputContainer = new UIView (activity);
-			inputContainer.SetRoundBordersWithColor (Color.White, Sizes.LoginInputHeight / 2, Sizes.LoginSeparatorSize);
-
+			inputContainer.SetRoundBordersWithColor (CustomColors.LightColor, Sizes.LoginInputHeight / 3, Sizes.LoginSeparatorSize);
+			FocusableInTouchMode = true;
 			emailInput = new UITextField (activity);
-			emailInput.Hint = "E-Mail";
+			emailInput.Hint = "E - M A I L";
 			emailInput.Gravity = GravityFlags.Center;
 			emailInput.SetSingleLine ();
 			emailInput.InputType = Android.Text.InputTypes.TextVariationEmailAddress;
+			emailInput.TextSize = Sizes.GetRealSize (9);
+			emailInput.TextColor = CustomColors.LightColor;
+			emailInput.SetHintTextColor (CustomColors.LightColorDim);
+			emailInput.SetPadding (1, 1, 1, 1);
+			emailInput.ClearFocus ();
 
 			passwordInput = new UITextField (activity);
-			passwordInput.Hint = "Password";
+			passwordInput.Hint = "P A S S W O R D";
 			passwordInput.Gravity = GravityFlags.Center;
 			passwordInput.SetSingleLine ();
 			passwordInput.InputType = Android.Text.InputTypes.TextVariationPassword;
+			passwordInput.TextSize = Sizes.GetRealSize (9);
+			passwordInput.TextColor = CustomColors.LightColor;
+			passwordInput.SetPadding (1, 1, 1, 1);
+			passwordInput.SetHintTextColor (CustomColors.LightColorDim);
 
 			separator = new UIView (activity);
-			separator.BackgroundColor = Color.White;
+			separator.BackgroundColor = CustomColors.LightColor;
 
 			inputContainer.AddViews (
 				emailInput,
@@ -49,16 +66,18 @@ namespace Need2Park
 				passwordInput
 			);
 
-			loginButton = new UILabel (activity);
-			loginButton.Text = "Log in";
+			loginButton = new UILabelButton (activity);
+			loginButton.Text = "L O G   I N";
 			loginButton.Gravity = GravityFlags.Center;
-			loginButton.BackgroundColor = Color.Black;
-			loginButton.Font = Font.Get (FontStyle.Serif, 11);
+			loginButton.BackgroundColor = CustomColors.DarkColor;
+			loginButton.TextSize = Sizes.GetRealSize (9);
+			loginButton.SetPadding (1, 1, 1, 1);
+//			loginButton.Font = Font.Get (FontStyle.Serif, 11);
 			loginButton.Measure (0, 0);
-			loginButton.TextColor = Color.White;
+			loginButton.TextColor = CustomColors.LightColor;
 
-			int radius = (loginButton.MeasuredHeight + 4 * Sizes.LoginInputPadding) / 2;
-			loginButton.SetCornerRadiusWithColor (Color.Black, 
+			int radius = (int)(loginButton.MeasuredHeight * 0.7f);
+			loginButton.SetCornerRadiusWithColor (CustomColors.DarkColor, 
 				new float[] {
 					0, 0,
 					0, 0, 
@@ -67,9 +86,13 @@ namespace Need2Park
 				}
 			);
 
+			loaderView = new LoaderView (activity);
+
 			AddViews (
+				backgroundImage,
 				inputContainer,
-				loginButton
+				loginButton,
+				loaderView
 			);
 
 			Frame = new Frame (DeviceInfo.ScreenWidth, DeviceInfo.ScreenHeight - DeviceInfo.StatusBarHeight);
@@ -118,6 +141,14 @@ namespace Need2Park
 				loginButtonWidth,
 				loginButtonHeight
 			);
+
+			loaderView.Frame = new Frame (
+				(Frame.W - Sizes.LoaderSize) / 2,
+				(int)((Frame.H - Sizes.LoaderSize) * 0.8f),
+				Sizes.LoaderSize,
+				Sizes.LoaderSize
+			);
+
 		}
 
 		async void HandleLoginClicked (object sender, EventArgs e)
@@ -138,6 +169,7 @@ namespace Need2Park
 						Email = emailInput.Text,
 						Password = passwordInput.Text
 					};
+					loaderView.ShowAnimation ();
 
 					LoginResponse response = await Networking.SendLoginRequest (loginRequest);
 
@@ -160,6 +192,8 @@ namespace Need2Park
 						activity.Finish ();
 					}
 					isLoginInProgess = false;
+
+					loaderView.StopAnimating ();
 				}
 			}
 		}

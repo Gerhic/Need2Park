@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<resources>
+	<style name="Theme.Splash" parent="android:Theme">
+		<item name="android:windowNoTitle">true</item>
+		<item name="android:windowBackground">@drawable/esileht_logoga</item>
+	</style>
+
+	<style name="Theme.MainTheme" parent="android:Theme.Holo">
+		<item name="android:actionBarStyle">@style/MyActionBar</item>
+	</style>
+
+	<style name="MyActionBar" parent="@android:style/Widget.Holo.ActionBar">
+        <item name="android:background">#453E57</item>
+
+        <item name="android:icon">@android:color/transparent</item>
+    </style>
+</resources>
+	

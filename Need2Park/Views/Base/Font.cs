@@ -24,6 +24,7 @@ namespace Need2Park
 			{ 1, "sans-serif-light" },
 			{ 2, "sans-serif-thin" },
 			{ 3, "sans-serif-condensed" },
+			{ 4, "latobold"}
 		};
 
 		public static Font Get (FontStyle style, int size, bool bold = false)
@@ -36,6 +37,14 @@ namespace Need2Park
 		public int Size { get; set; }
 
 		public bool Bold { get; set; }
+
+		public static Font GetLato (int size)
+		{
+			return new Font () { 
+				Name = "Lato-Bold",
+				Size = size
+			};
+		}
 	}
 }
 

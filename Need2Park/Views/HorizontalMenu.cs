@@ -12,7 +12,6 @@ namespace Need2Park
 		public EventHandler OnLabelClick;
 		HorizontalMenuLabel mapLabel;
 		HorizontalMenuLabel myListLabel;
-		UIView hilightBar;
 
 		const int labelsCount = 2;
 
@@ -26,33 +25,29 @@ namespace Need2Park
 			} 
 			set {
 				if (activeLabel != null) {
-					activeLabel.SetBold (false);
+					activeLabel.BackgroundColor = Color.Transparent;
 				}
 				activeLabel = value;
-				activeLabel.SetBold (true);
-
+				activeLabel.BackgroundColor = CustomColors.LightColor;
 			}
 		}
 
 		public HorizontalMenu (Activity activity) : base (activity)
 		{
-			BackgroundColor = Color.LimeGreen;
+			BackgroundColor = CustomColors.LightColorDim;
 			mapLabel = new HorizontalMenuLabel (activity);
 			mapLabel.Text = "Map";
 			mapLabel.Click += HandleLabelClick;
 
 			myListLabel = new HorizontalMenuLabel (activity);
-			myListLabel.Text = "Bookmarks";
+			myListLabel.Text = "My places";
 			myListLabel.Click += HandleLabelClick;
-
-			hilightBar = new UIView (activity);
-			hilightBar.BackgroundColor = Color.White;
 
 			AddViews (
 				mapLabel,
-				myListLabel,
-				hilightBar
+				myListLabel
 			);
+			ActiveLabel = mapLabel;
 		}
 
 		public override void LayoutSubviews ()
@@ -73,24 +68,16 @@ namespace Need2Park
 				Frame.W / labelsCount,
 				Frame.H
 			);
-
-			hilightBar.Frame = new Frame (
-				ActiveLabel.Frame.X,
-				ActiveLabel.Frame.Bottom - Sizes.HilightBarHeight,
-				ActiveLabel.Frame.W,
-				Sizes.HilightBarHeight
-			);
 		}
 
 		void HandleLabelClick (object sender, EventArgs e)
 		{
-			if (sender == activeLabel) {
+			if (sender == ActiveLabel) {
 				return;
 			}
 
 			HorizontalMenuLabel label = sender as HorizontalMenuLabel;
 			if (label != null) {
-				hilightBar.Animate ().TranslationX (label.Frame.X);
 				ActiveLabel = label;
 			}
 

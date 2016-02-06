@@ -45,7 +45,34 @@ namespace Need2Park
 		{
 			
 			// aapt resource value: 0x7f020000
-			public const int SearchCursor = 2130837504;
+			public const int burger = 2130837504;
+			
+			// aapt resource value: 0x7f020001
+			public const int esilehe_logo = 2130837505;
+			
+			// aapt resource value: 0x7f020002
+			public const int esileht_logoga = 2130837506;
+			
+			// aapt resource value: 0x7f020003
+			public const int landing_backg = 2130837507;
+			
+			// aapt resource value: 0x7f020004
+			public const int loadingscreendot = 2130837508;
+			
+			// aapt resource value: 0x7f020005
+			public const int map = 2130837509;
+			
+			// aapt resource value: 0x7f020006
+			public const int map_tag = 2130837510;
+			
+			// aapt resource value: 0x7f020007
+			public const int SearchCursor = 2130837511;
+			
+			// aapt resource value: 0x7f020008
+			public const int taust1_1024 = 2130837512;
+			
+			// aapt resource value: 0x7f020009
+			public const int ylemine_logo = 2130837513;
 			
 			static Drawable()
 			{
@@ -60,8 +87,8 @@ namespace Need2Park
 		public partial class Id
 		{
 			
-			// aapt resource value: 0x7f060000
-			public const int myButton = 2131099648;
+			// aapt resource value: 0x7f070000
+			public const int myButton = 2131165184;
 			
 			static Id()
 			{
@@ -120,6 +147,28 @@ namespace Need2Park
 			}
 			
 			private String()
+			{
+			}
+		}
+		
+		public partial class Style
+		{
+			
+			// aapt resource value: 0x7f060002
+			public const int MyActionBar = 2131099650;
+			
+			// aapt resource value: 0x7f060001
+			public const int Theme_MainTheme = 2131099649;
+			
+			// aapt resource value: 0x7f060000
+			public const int Theme_Splash = 2131099648;
+			
+			static Style()
+			{
+				global::Android.Runtime.ResourceIdManager.UpdateIdValues();
+			}
+			
+			private Style()
 			{
 			}
 		}

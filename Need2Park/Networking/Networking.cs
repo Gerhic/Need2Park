@@ -34,15 +34,15 @@ namespace Need2Park
 		public async static Task<List<ParkingLotInfo>> SendParkingLotsRequest ()
 		{
 			if (LoginState.ActiveUser != null) {
-			var dict = new Dictionary<string, string> ();
+				var dict = new Dictionary<string, string> ();
 
-			dict.Add (sessionIdHeaderKey, LoginState.ActiveUser.SessionId);
+				dict.Add (sessionIdHeaderKey, LoginState.ActiveUser.SessionId);
 
-			var json = await Get (BASE, PARKINGLOTS, dict);
+				var json = await Get (BASE, PARKINGLOTS, dict);
 
-			Console.WriteLine ("### " + json.ToString ());
+				Console.WriteLine ("### " + json.ToString ());
 
-			return Codec.DecodeParkingLotsRequest (json);
+				return Codec.DecodeParkingLotsRequest (json);
 			} else {
 				return null;
 			}

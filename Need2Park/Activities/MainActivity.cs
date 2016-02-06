@@ -5,49 +5,75 @@ using Android.Views;
 using Android.Content;
 using Android.Preferences;
 using System.Collections.Generic;
+using Android.Graphics;
 
 namespace Need2Park
 {
-	[Activity (Label = "Need2Park", MainLauncher = true, Icon = "@mipmap/icon")]
+	[Activity (Theme = "@style/Theme.MainTheme", Icon = "@mipmap/icon", ScreenOrientation = Android.Content.PM.ScreenOrientation.Portrait)]
 	public class MainActivity : Activity
 	{
-		IMenuItem menuitem;
 		const int menuitemId = 0;
 
 		MenuPopupView menuPopup;
 		MainView contentView;
 
+		UIView actionBarContainer;
+		UIImageView logoImage;
+		UIView menuImageContainer;
+		UIImageView menuImage;
+
 		protected override void OnCreate (Bundle savedInstanceState)
 		{
 			base.OnCreate (savedInstanceState);
 
-			DeviceInfo.Measure(this);
+			logoImage = new UIImageView (this);
+			logoImage.ImageResource = Resource.Drawable.esilehe_logo;
+			logoImage.SetScaleType (ImageView.ScaleType.CenterInside);
+			logoImage.LayoutParameters = LayoutUtils.GetRelativeMatchParent ();
 
-			GetActiveUserFromSharedPreferences ();
+			menuImageContainer = new UIView (this);
+			menuImageContainer.Frame = new Frame (
+				DeviceInfo.ScreenWidth - DeviceInfo.NavigationBarHeight - Sizes.MenuButtonSize,
+				0,
+				DeviceInfo.NavigationBarHeight + Sizes.MenuButtonSize,
+				DeviceInfo.NavigationBarHeight
+			);
+
+
+
+			menuImage = new UIImageView (this);
+			menuImage.ImageResource = Resource.Drawable.burger;
+			menuImage.SetScaleType (ImageView.ScaleType.CenterInside);
+			menuImage.Frame = new Frame (
+				Sizes.MenuButtonSize,
+				(menuImageContainer.Frame.H - Sizes.MenuButtonSize) / 2,
+				Sizes.MenuButtonSize,
+				Sizes.MenuButtonSize
+			);
+
+			menuImageContainer.AddView (menuImage);
+
+			actionBarContainer = new UIView (this);
+			actionBarContainer.Frame = new Frame (DeviceInfo.ScreenWidth, DeviceInfo.NavigationBarHeight);
+			actionBarContainer.AddViews (
+				logoImage,
+				menuImageContainer
+			);
+
+			ActionBar.SetDisplayShowCustomEnabled (true);
+
+			this.ActionBar.SetCustomView (
+				actionBarContainer, 
+				new ActionBar.LayoutParams (DeviceInfo.ScreenWidth, DeviceInfo.NavigationBarHeight)
+			);
 
 			contentView = new MainView (this);
 			SetContentView (contentView);
-		}
 
-		public override bool OnCreateOptionsMenu (IMenu menu)
-		{
-			menuitem = menu.Add (Menu.None, menuitemId, Menu.None, "Open menu");
-//			menuitem.SetIcon (Resource.Drawable.icon_normal_filters);
-			menuitem.SetShowAsAction (ShowAsAction.Always);
+			menuPopup = new MenuPopupView (this, WindowManager);
+			menuPopup.UpdateView ();
 
-			if (menuPopup == null) {
-				InitMenuPopup();
-			}
-			return true;
-		}
-
-		public override bool OnMenuItemSelected (int featureId, IMenuItem item)
-		{
-			if (item.ItemId == menuitemId) {
-				ShowMenu ();
-				return true;
-			}
-			return base.OnMenuItemSelected (featureId, item);
+			menuImageContainer.Click += (object sender, System.EventArgs e) => ShowMenu ();
 		}
 
 		void ShowMenu ()
@@ -55,40 +81,11 @@ namespace Need2Park
 			menuPopup.ShowAnimated ();
 		}
 
-		void InitMenuPopup ()
-		{
-			menuPopup = new MenuPopupView (this, WindowManager);
-		}
-
 		protected override void OnResume ()
 		{
 			base.OnResume ();
 			if (menuPopup != null) {
 				menuPopup.UpdateView ();
-			}
-		}
-
-		public async void GetActiveUserFromSharedPreferences ()
-		{
-			if (LoginState.ActiveUser == null) {
-				ISharedPreferences prefs = PreferenceManager.GetDefaultSharedPreferences (this); 
-				var name = prefs.GetString (UserInfo.NAME, string.Empty);
-				var sessionId = prefs.GetString (UserInfo.SESSIONID, string.Empty);
-
-				if (sessionId != string.Empty) {
-					LoginState.ActiveUser = new UserInfo {
-						Name = name,
-						SessionId = sessionId
-					};
-				}
-
-				List<ParkingLotInfo> parkingLotInfoList = await Networking.SendParkingLotsRequest ();
-				if (parkingLotInfoList != null) {
-					LoginState.ActiveUser.AccessInfo.AddRange (parkingLotInfoList);
-					contentView.UpdateViews ();
-				} else {
-					// TODO handle failing in life
-				}
 			}
 		}
 

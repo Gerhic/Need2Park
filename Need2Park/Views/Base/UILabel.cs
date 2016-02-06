@@ -86,7 +86,7 @@ namespace Need2Park
 
 		public UILabel (Activity context) : base (context.ApplicationContext) // need to pass app context here to prevent memory leaks
 		{
-			
+			Font = Font.GetLato (Sizes.GetRealSize (8));
 		}
 
 		public virtual void Hide ()

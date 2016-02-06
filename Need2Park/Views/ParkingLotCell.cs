@@ -19,8 +19,6 @@ namespace Need2Park
 
 		public ParkingLotCell (Activity activity) : base (activity)
 		{
-			BackgroundColor = Color.LightBlue;
-
 			nameLabel = new ParkingLotCellLabel (activity);
 			locationLabel = new ParkingLotCellLabel (activity);
 

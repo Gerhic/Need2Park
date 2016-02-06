@@ -8,19 +8,23 @@ namespace Need2Park
 {
 	public class MapView : UIView
 	{
-		UILabel label;
+		UIImageView mapImage;
 		public MapView (Activity activity) : base (activity)
 		{
-			label = new UILabel (activity);
-			label.Gravity = GravityFlags.Center;
-			label.TextColor = Color.Black;
-			label.Text = "Map";
-			AddView (label);
+			mapImage = new UIImageView (activity);
+			mapImage.ImageResource = Resource.Drawable.map;
+			mapImage.SetScaleType (ImageView.ScaleType.CenterCrop);
+
+
+
+			AddViews (
+				mapImage
+			);
 		}
 
 		public override void LayoutSubviews ()
 		{
-			label.Frame = Frame.Bounds;
+			mapImage.Frame = Frame.Bounds;
 		}
 	}
 

@@ -9,7 +9,7 @@ namespace Need2Park
 {
 	class MenuButton : UILabel
 	{
-		public static Color RoundBackgroundColor = Color.White;
+		public static Color RoundBackgroundColor = CustomColors.LightColor;
 
 		public override Frame Frame {
 			get {
@@ -20,10 +20,12 @@ namespace Need2Park
 				SetSlightlyRoundWithBackgroundColor (RoundBackgroundColor, Frame.H / 2);
 			}
 		}
+
 		public MenuButton (Activity activity) : base (activity)
 		{
-			TextColor = Color.Black;
-			Font = Font.Get (FontStyle.Serif, 14);
+			TextColor = CustomColors.DarkColor;
+//			Font = Font.Get (FontStyle.Serif, 14);
+			TextSize = Sizes.GetRealSize (14);
 			Gravity = GravityFlags.Center;
 		}
 	}

@@ -4,7 +4,7 @@ namespace Need2Park
 {
 	static class Sizes
 	{
-		static int GetRealSize (float size)
+		public static int GetRealSize (float size)
 		{
 			return (int)(size * DeviceInfo.Density);
 		}
@@ -77,7 +77,7 @@ namespace Need2Park
 
 		public static int LoginInputHeight {
 			get { 
-				return GetRealSize (60);
+				return GetRealSize (80);
 			}
 		}
 
@@ -102,6 +102,18 @@ namespace Need2Park
 		public static int UserNameLabelPadding {
 			get {
 				return GetRealSize (10);
+			}
+		}
+
+		public static int MenuButtonSize {
+			get {
+				return GetRealSize (20);
+			}
+		}
+
+		public static int LoaderSize {
+			get {
+				return GetRealSize (100);
 			}
 		}
 	}

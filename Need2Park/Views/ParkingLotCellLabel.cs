@@ -12,7 +12,7 @@ namespace Need2Park
 		public ParkingLotCellLabel (Activity activity) : base (activity)
 		{
 			Gravity = GravityFlags.CenterVertical;
-			TextColor = Color.Black;
+			TextColor = CustomColors.DarkColor;
 			Ellipsize = Android.Text.TextUtils.TruncateAt.End;
 			SetSingleLine ();
 		}
