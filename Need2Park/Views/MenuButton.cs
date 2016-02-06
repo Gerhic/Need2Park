@@ -7,26 +7,45 @@ using System.Threading.Tasks;
 
 namespace Need2Park
 {
-	class MenuButton : UILabel
+	class MenuButton : UIView
 	{
-		public static Color RoundBackgroundColor = CustomColors.LightColor;
-
-		public override Frame Frame {
-			get {
-				return base.Frame;
+		public string Text {
+			get { 
+				return label.Text;
 			}
-			set {
-				base.Frame = value;
-				SetSlightlyRoundWithBackgroundColor (RoundBackgroundColor, Frame.H / 2);
+			set { 
+				label.Text = value;
 			}
 		}
 
+		UILabel label;
+		UIView underLine;
+
 		public MenuButton (Activity activity) : base (activity)
 		{
-			TextColor = CustomColors.DarkColor;
-//			Font = Font.Get (FontStyle.Serif, 14);
-			TextSize = Sizes.GetRealSize (14);
-			Gravity = GravityFlags.Center;
+			label = new UILabel (activity);
+			label.TextColor = CustomColors.LightColor;
+			label.TextSize = Sizes.GetRealSize (10);
+			label.Gravity = GravityFlags.CenterVertical;
+
+			underLine = new UIView (activity);
+			underLine.BackgroundColor = CustomColors.LightColor;
+
+			AddViews (
+				label,
+				underLine
+			);
+		}
+
+		public override void LayoutSubviews ()
+		{
+			label.Frame = Frame.Bounds;
+			underLine.Frame = new Frame (
+				0, 
+				Sizes.MenuButtonHeight - Sizes.LoginSeparatorSize,
+				Frame.W,
+				Sizes.LoginSeparatorSize
+			);
 		}
 	}
 

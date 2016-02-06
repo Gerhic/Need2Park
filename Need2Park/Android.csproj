@@ -89,8 +89,8 @@
     <Compile Include="Views\Base\UIImageView.cs" />
     <Compile Include="Views\UILabelButton.cs" />
     <Compile Include="Activities\SplashActivity.cs" />
-    <Compile Include="Activities\SplashView.cs" />
     <Compile Include="Views\LoaderView.cs" />
+    <Compile Include="Views\ParkingLotLabel.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
@@ -116,6 +116,13 @@
     <AndroidResource Include="Resources\drawable\burger.png" />
     <AndroidResource Include="Resources\drawable\loadingscreendot.gif" />
     <AndroidResource Include="Resources\drawable\esileht_logoga.png" />
+    <AndroidResource Include="Resources\mipmap-hdpi\ikoon.png" />
+    <AndroidResource Include="Resources\mipmap-mdpi\ikoon.png" />
+    <AndroidResource Include="Resources\mipmap-xhdpi\ikoon.png" />
+    <AndroidResource Include="Resources\mipmap-xxhdpi\ikoon.png" />
+    <AndroidResource Include="Resources\mipmap-xxxhdpi\ikoon.png" />
+    <AndroidResource Include="Resources\drawable\app_parking_background.png" />
+    <AndroidResource Include="Resources\drawable\nool.png" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\drawable\" />

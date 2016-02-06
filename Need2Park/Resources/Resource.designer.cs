@@ -45,34 +45,40 @@ namespace Need2Park
 		{
 			
 			// aapt resource value: 0x7f020000
-			public const int burger = 2130837504;
+			public const int app_parking_background = 2130837504;
 			
 			// aapt resource value: 0x7f020001
-			public const int esilehe_logo = 2130837505;
+			public const int burger = 2130837505;
 			
 			// aapt resource value: 0x7f020002
-			public const int esileht_logoga = 2130837506;
+			public const int esilehe_logo = 2130837506;
 			
 			// aapt resource value: 0x7f020003
-			public const int landing_backg = 2130837507;
+			public const int esileht_logoga = 2130837507;
 			
 			// aapt resource value: 0x7f020004
-			public const int loadingscreendot = 2130837508;
+			public const int landing_backg = 2130837508;
 			
 			// aapt resource value: 0x7f020005
-			public const int map = 2130837509;
+			public const int loadingscreendot = 2130837509;
 			
 			// aapt resource value: 0x7f020006
-			public const int map_tag = 2130837510;
+			public const int map = 2130837510;
 			
 			// aapt resource value: 0x7f020007
-			public const int SearchCursor = 2130837511;
+			public const int map_tag = 2130837511;
 			
 			// aapt resource value: 0x7f020008
-			public const int taust1_1024 = 2130837512;
+			public const int nool = 2130837512;
 			
 			// aapt resource value: 0x7f020009
-			public const int ylemine_logo = 2130837513;
+			public const int SearchCursor = 2130837513;
+			
+			// aapt resource value: 0x7f02000a
+			public const int taust1_1024 = 2130837514;
+			
+			// aapt resource value: 0x7f02000b
+			public const int ylemine_logo = 2130837515;
 			
 			static Drawable()
 			{
@@ -121,6 +127,9 @@ namespace Need2Park
 			
 			// aapt resource value: 0x7f030000
 			public const int Icon = 2130903040;
+			
+			// aapt resource value: 0x7f030001
+			public const int ikoon = 2130903041;
 			
 			static Mipmap()
 			{

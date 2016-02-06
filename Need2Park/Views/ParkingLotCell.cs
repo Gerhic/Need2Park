@@ -10,7 +10,8 @@ namespace Need2Park
 	public class ParkingLotCell : UITableCell
 	{
 		ParkingLotCellLabel nameLabel;
-		ParkingLotCellLabel locationLabel;
+		ParkingLotCellLabel freeSlotsLabel;
+		UIImageView arrowImage;
 
 		public ParkingLotInfo info {
 			get;
@@ -20,14 +21,23 @@ namespace Need2Park
 		public ParkingLotCell (Activity activity) : base (activity)
 		{
 			nameLabel = new ParkingLotCellLabel (activity);
-			locationLabel = new ParkingLotCellLabel (activity);
+			nameLabel.TextSize = Sizes.GetRealSize (9);
+			nameLabel.Gravity = GravityFlags.Bottom;
+
+			freeSlotsLabel = new ParkingLotCellLabel (activity);
+			freeSlotsLabel.TextSize = Sizes.GetRealSize (7);
+
+			arrowImage = new UIImageView (activity);
+			arrowImage.SetScaleType (ImageView.ScaleType.CenterInside);
+			arrowImage.ImageResource = Resource.Drawable.nool;
 
 			AddViews (
 				nameLabel, 
-				locationLabel
+				freeSlotsLabel,
+				arrowImage
 			);
 
-			Frame = new Frame (DeviceInfo.ScreenWidth, Sizes.ParkingLotCellHeight);
+			Frame = new Frame (DeviceInfo.ScreenWidth - 2 * Sizes.ListViewPadding, Sizes.ParkingLotCellHeight);
 		}
 
 		public void UpdateInfo (ParkingLotInfo parkingLotInfo)
@@ -35,24 +45,31 @@ namespace Need2Park
 			info = parkingLotInfo;
 
 			nameLabel.Text = parkingLotInfo.Name;
-			locationLabel.Text = parkingLotInfo.Location;
+			freeSlotsLabel.Text = "Free slots: " + parkingLotInfo.Spots;
 
 			LayoutSubviews ();
 		}
 
 		public override void LayoutSubviews ()
 		{
+			arrowImage.Frame = new Frame (
+				Frame.W - Sizes.ParkingLotCellArrowSize - Sizes.ParkingLotCellArrowPadding,
+				(Frame.H - Sizes.ParkingLotCellArrowSize) / 2,
+				Sizes.ParkingLotCellArrowSize,
+				Sizes.ParkingLotCellArrowSize
+			);
+
 			nameLabel.Frame = new Frame (
 				Sizes.ParkingLotCellLabelPadding,
 				0,
-				Frame.W - 2 * Sizes.ParkingLotCellLabelPadding,
+				arrowImage.Frame.X - Sizes.ParkingLotCellLabelPadding - Sizes.ParkingLotCellArrowPadding,
 				Frame.H / 2
 			);
 
-			locationLabel.Frame = new Frame (
+			freeSlotsLabel.Frame = new Frame (
 				Sizes.ParkingLotCellLabelPadding,
 				Frame.H / 2,
-				Frame.W - 2 * Sizes.ParkingLotCellLabelPadding,
+				arrowImage.Frame.X - Sizes.ParkingLotCellLabelPadding - Sizes.ParkingLotCellArrowPadding,
 				Frame.H / 2
 			);
 		}

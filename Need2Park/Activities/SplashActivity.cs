@@ -11,15 +11,10 @@ namespace Need2Park
 	[Activity (Theme = "@style/Theme.Splash", ScreenOrientation = Android.Content.PM.ScreenOrientation.Portrait, MainLauncher = true)]
 	public class SplashActivity : Activity
 	{
-		SplashView contentView;
-
 		protected override async void OnCreate (Bundle savedInstanceState)
 		{
 			base.OnCreate (savedInstanceState);
 			DeviceInfo.Measure(this);
-
-			contentView = new SplashView (this);
-			SetContentView (contentView);
 
 			await GetActiveUserFromSharedPreferences ();
 

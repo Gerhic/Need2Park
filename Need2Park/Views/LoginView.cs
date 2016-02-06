@@ -35,7 +35,9 @@ namespace Need2Park
 
 			inputContainer = new UIView (activity);
 			inputContainer.SetRoundBordersWithColor (CustomColors.LightColor, Sizes.LoginInputHeight / 3, Sizes.LoginSeparatorSize);
+
 			FocusableInTouchMode = true;
+
 			emailInput = new UITextField (activity);
 			emailInput.Hint = "E - M A I L";
 			emailInput.Gravity = GravityFlags.Center;

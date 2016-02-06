@@ -40,7 +40,7 @@ namespace Need2Park
 			mapLabel.Click += HandleLabelClick;
 
 			myListLabel = new HorizontalMenuLabel (activity);
-			myListLabel.Text = "My places";
+			myListLabel.Text = "My Places";
 			myListLabel.Click += HandleLabelClick;
 
 			AddViews (
@@ -81,6 +81,18 @@ namespace Need2Park
 				ActiveLabel = label;
 			}
 
+			if (OnLabelClick != null) {
+				OnLabelClick (new object (), null);
+			}
+		}
+
+		public void RestoreInitalState ()
+		{
+			if (ActiveLabel == mapLabel) {
+				return;
+			}
+
+			ActiveLabel = mapLabel;
 			if (OnLabelClick != null) {
 				OnLabelClick (new object (), null);
 			}

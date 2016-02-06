@@ -9,15 +9,15 @@ namespace Need2Park
 			return (int)(size * DeviceInfo.Density);
 		}
 
-		public static int ButtonHeight {
+		public static int MenuButtonHeight {
 			get { 
-				return GetRealSize (60);
+				return GetRealSize (70);
 			}
 		}
 
 		public static int MenuButtonPadding {
 			get { 
-				return GetRealSize (DeviceInfo.ScreenWidth / 10);
+				return GetRealSize (30);
 			}
 		}
 
@@ -65,7 +65,7 @@ namespace Need2Park
 
 		public static int ParkingViewLabelHeight {
 			get { 
-				return GetRealSize (70);
+				return GetRealSize (40);
 			}
 		}
 
@@ -105,7 +105,7 @@ namespace Need2Park
 			}
 		}
 
-		public static int MenuButtonSize {
+		public static int ActionBarButtonSize {
 			get {
 				return GetRealSize (20);
 			}
@@ -114,6 +114,48 @@ namespace Need2Park
 		public static int LoaderSize {
 			get {
 				return GetRealSize (100);
+			}
+		}
+
+		public static int ParkingLotCellArrowSize {
+			get {
+				return GetRealSize (40);
+			}
+		}
+
+		public static int ParkingLotCellArrowPadding {
+			get {
+				return GetRealSize (10);
+			}
+		}
+
+		public static int ListViewPadding {
+			get {
+				return GetRealSize (15);
+			}
+		}
+
+		public static int ActionBarPadding {
+			get {
+				return GetRealSize (10);
+			}
+		}
+
+		public static int ParkingViewTitleHeight {
+			get {
+				return GetRealSize (70);
+			}
+		}
+
+		public static int ParkingViewButtonPadding {
+			get {
+				return GetRealSize (22);
+			}
+		}
+
+		public static int ParkingViewButtonHeight {
+			get {
+				return GetRealSize (50);
 			}
 		}
 	}

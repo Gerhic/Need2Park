@@ -11,17 +11,19 @@ namespace Need2Park
 	[Activity (ScreenOrientation = Android.Content.PM.ScreenOrientation.Portrait)]
 	public class ParkingLotActivity : Activity
 	{
-		ParkingLotInfo parkingLotInfo;
 		ParkingLotView contentView;
 
 		protected override void OnCreate (Bundle savedInstanceState)
 		{
 			base.OnCreate (savedInstanceState);
+
+			ActionBar.Hide ();
+
 			if (PublicInfo.ActiveParkingLotInfo != null) {
-				parkingLotInfo = PublicInfo.ActiveParkingLotInfo;
-				Title = parkingLotInfo.Name;
-				contentView = new ParkingLotView (this, parkingLotInfo);
+				contentView = new ParkingLotView (this, PublicInfo.ActiveParkingLotInfo);
 				SetContentView (contentView);
+			} else {
+				Finish ();
 			}
 		}
 	}

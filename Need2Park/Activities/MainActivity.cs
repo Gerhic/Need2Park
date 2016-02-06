@@ -33,22 +33,20 @@ namespace Need2Park
 
 			menuImageContainer = new UIView (this);
 			menuImageContainer.Frame = new Frame (
-				DeviceInfo.ScreenWidth - DeviceInfo.NavigationBarHeight - Sizes.MenuButtonSize,
 				0,
-				DeviceInfo.NavigationBarHeight + Sizes.MenuButtonSize,
+				0,
+				DeviceInfo.NavigationBarHeight + Sizes.ActionBarButtonSize,
 				DeviceInfo.NavigationBarHeight
 			);
-
-
 
 			menuImage = new UIImageView (this);
 			menuImage.ImageResource = Resource.Drawable.burger;
 			menuImage.SetScaleType (ImageView.ScaleType.CenterInside);
 			menuImage.Frame = new Frame (
-				Sizes.MenuButtonSize,
-				(menuImageContainer.Frame.H - Sizes.MenuButtonSize) / 2,
-				Sizes.MenuButtonSize,
-				Sizes.MenuButtonSize
+				0,
+				(menuImageContainer.Frame.H - Sizes.ActionBarButtonSize) / 2,
+				Sizes.ActionBarButtonSize,
+				Sizes.ActionBarButtonSize
 			);
 
 			menuImageContainer.AddView (menuImage);
@@ -87,6 +85,9 @@ namespace Need2Park
 			if (menuPopup != null) {
 				menuPopup.UpdateView ();
 			}
+			if (contentView != null) {
+				contentView.UpdateViews ();
+			}
 		}
 
 		public void ClearUserCache ()
@@ -102,6 +103,15 @@ namespace Need2Park
 		public void HandeLogout ()
 		{
 			contentView.UpdateViews ();
+		}
+
+		public override void OnBackPressed ()
+		{
+			if (menuPopup.isOpen) {
+				menuPopup.HideMenu ();
+			} else {
+				base.OnBackPressed ();
+			}
 		}
 	}
 }

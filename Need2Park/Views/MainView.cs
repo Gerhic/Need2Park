@@ -24,7 +24,6 @@ namespace Need2Park
 			mapView.LayoutParameters = LayoutUtils.GetRelativeMatchParent ();
 
 			myPlacesView = new MyPlacesView (activity);
-			myPlacesView.LayoutParameters = LayoutUtils.GetRelativeMatchParent ();
 
 			myPlacesView.TranslationX = DeviceInfo.ScreenWidth;
 
@@ -47,6 +46,7 @@ namespace Need2Park
 		{
 			horizontalMenu.Frame = new Frame (Frame.W, Sizes.HorizontalMenuHeight);
 			contentContainer.Frame = new Frame (0, Sizes.HorizontalMenuHeight, Frame.W, Frame.H - Sizes.HorizontalMenuHeight);
+			myPlacesView.Frame = contentContainer.Frame.Bounds;
 		}
 
 		bool isMapOpen = true;
@@ -56,21 +56,32 @@ namespace Need2Park
 				myPlacesView.UpdateList ();
 			}
 
-			int transition1 = 0;
-			int transition2 = Frame.W;
+			int mapTransition = 0;
+			int myPlacesTransition = Frame.W;
 
 			if (isMapOpen) {
-				transition1 = -Frame.W;
-				transition2 = 0;
+				mapTransition = -Frame.W;
+				myPlacesTransition = 0;
 			}
-			mapView.Animate ().TranslationX (transition1);
-			myPlacesView.Animate ().TranslationX (transition2);
+
+			mapView.Animate ().TranslationX (mapTransition);
+			myPlacesView.Animate ().TranslationX (myPlacesTransition);
 			isMapOpen = !isMapOpen;
 		}
 
 		public void UpdateViews ()
 		{
 			myPlacesView.UpdateList ();
+		}
+
+		public override bool DispatchKeyEvent (KeyEvent e)
+		{
+			if (e.KeyCode == Keycode.Back && !isMapOpen) {
+				horizontalMenu.RestoreInitalState ();
+				return true;
+			} else {
+				return base.DispatchKeyEvent (e);
+			}
 		}
 	}
 }

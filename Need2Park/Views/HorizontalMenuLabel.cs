@@ -16,7 +16,7 @@ namespace Need2Park
 			defaultTextColor = TextColor;
 			Gravity = GravityFlags.Center;
 			TextColor = CustomColors.DarkColor;
-			TextSize = Sizes.GetRealSize (10);
+			TextSize = Sizes.GetRealSize (9);
 		}
 	}
 }
