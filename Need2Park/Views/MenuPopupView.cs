@@ -134,6 +134,7 @@ namespace Need2Park
 				activity.ClearUserCache ();
 				userNameLabel.Visibility = ViewStates.Gone;
 				activity.HandeLogout ();
+				LayoutSubviews ();
 			}
 		}
 

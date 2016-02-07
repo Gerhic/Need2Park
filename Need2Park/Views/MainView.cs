@@ -9,18 +9,18 @@ namespace Need2Park
 	class MainView : UIView
 	{
 		HorizontalMenu horizontalMenu;
-		MapView mapView;
+		public LocationView mapView;
 		MyPlacesView myPlacesView;
 		UIView contentContainer;
 
-		public MainView (Activity activity) : base (activity)
+		public MainView (MainActivity activity) : base (activity)
 		{
 			BackgroundColor = CustomColors.LightColor;
 			horizontalMenu = new HorizontalMenu (activity);
 
 			contentContainer = new UIView (activity);
 
-			mapView = new MapView (activity);
+			mapView = new LocationView (activity);
 			mapView.LayoutParameters = LayoutUtils.GetRelativeMatchParent ();
 
 			myPlacesView = new MyPlacesView (activity);

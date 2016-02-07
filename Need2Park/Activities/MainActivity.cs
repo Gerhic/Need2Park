@@ -6,11 +6,14 @@ using Android.Content;
 using Android.Preferences;
 using System.Collections.Generic;
 using Android.Graphics;
+using Android.Locations;
+using System.Linq;
+using System;
 
 namespace Need2Park
 {
 	[Activity (Theme = "@style/Theme.MainTheme", Icon = "@mipmap/icon", ScreenOrientation = Android.Content.PM.ScreenOrientation.Portrait)]
-	public class MainActivity : Activity
+	public class MainActivity : Activity, ILocationListener
 	{
 		const int menuitemId = 0;
 
@@ -21,6 +24,12 @@ namespace Need2Park
 		UIImageView logoImage;
 		UIView menuImageContainer;
 		UIImageView menuImage;
+
+
+		public Location CurrentLocation { get; set; }
+
+		LocationManager locMgr;
+
 
 		protected override void OnCreate (Bundle savedInstanceState)
 		{
@@ -65,6 +74,14 @@ namespace Need2Park
 				new ActionBar.LayoutParams (DeviceInfo.ScreenWidth, DeviceInfo.NavigationBarHeight)
 			);
 
+
+
+
+			locMgr = GetSystemService (Context.LocationService) as LocationManager;
+
+
+
+
 			contentView = new MainView (this);
 			SetContentView (contentView);
 
@@ -82,11 +99,41 @@ namespace Need2Park
 		protected override void OnResume ()
 		{
 			base.OnResume ();
+			string Provider = LocationManager.GpsProvider;
+
+			if(locMgr.IsProviderEnabled(Provider))
+			{
+				Criteria locationCriteria = new Criteria();
+
+				locationCriteria.Accuracy = Accuracy.Coarse;
+				locationCriteria.PowerRequirement = Power.Medium;
+
+				var locationProvider = locMgr.GetBestProvider(locationCriteria, true);
+
+				if (locationProvider != null)
+				{
+					locMgr.RequestLocationUpdates (locationProvider, 2000, 1, this);
+				}
+				else
+				{
+					Console.WriteLine ("No location providers available");
+				}
+			}
+			else
+			{
+				Console.WriteLine (Provider + " is not available. Does the device have location services enabled?");
+			}
+
+
 			if (menuPopup != null) {
 				menuPopup.UpdateView ();
 			}
 			if (contentView != null) {
 				contentView.UpdateViews ();
+			}
+
+			if (contentView != null && contentView.mapView != null) {
+				contentView.mapView.AddMarkers ();
 			}
 		}
 
@@ -103,6 +150,9 @@ namespace Need2Park
 		public void HandeLogout ()
 		{
 			contentView.UpdateViews ();
+			if (contentView != null && contentView.mapView != null) {
+				contentView.mapView.AddMarkers ();
+			}
 		}
 
 		public override void OnBackPressed ()
@@ -112,6 +162,29 @@ namespace Need2Park
 			} else {
 				base.OnBackPressed ();
 			}
+		}
+
+		protected override void OnPause ()
+		{
+			base.OnPause ();
+			locMgr.RemoveUpdates (this);
+		}
+
+		public void OnLocationChanged (Location location)
+		{
+			CurrentLocation = location;
+		}
+
+		public void OnProviderDisabled (string provider)
+		{
+		}
+
+		public void OnProviderEnabled (string provider)
+		{
+		}
+
+		public void OnStatusChanged (string provider, Availability status, Bundle extras)
+		{
 		}
 	}
 }

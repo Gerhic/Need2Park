@@ -62,7 +62,7 @@ namespace Need2Park
 
 			startParkingButton = new ParkingLotLabel (activity);
 			startParkingButton.TextSize = Sizes.GetRealSize (9);
-
+			startParkingButton.TextColor = CustomColors.DarkColor;
 			if (LoginState.ActiveUser != null && LoginState.ActiveUser.ParkingLotInUse == info) {
 				startParkingButton.Text = Strings.EndParking;
 			} else {
@@ -74,7 +74,7 @@ namespace Need2Park
 			}
 
 			int radius = (int)(Sizes.ParkingViewLabelHeight * 0.6f);
-			startParkingButton.SetCornerRadiusWithColor (CustomColors.DarkColor, 
+			startParkingButton.SetCornerRadiusWithColor (CustomColors.LightColor, 
 				new float[] {
 					0, 0,
 					0, 0, 
@@ -192,12 +192,17 @@ namespace Need2Park
 						isRequestInProgress = true;
 						// TODO check if succeeded
 						Networking.SendStartParkingRequest (parkingLotInfo.PublicId);
+
 						LoginState.ActiveUser.ParkingLotInUse = parkingLotInfo;
 						startParkingButton.Text = Strings.EndParking;
 						if (parkingLotInfo.Spots > 0) {
 							parkingLotInfo.Spots -= 1;
 						}
 						UpdateFreeSpots ();
+
+						// dialog
+//						DialogUtils.CreateDialog (activity, "Success!", null);
+
 					} else {
 						if (LoginState.ActiveUser.ParkingLotInUse == parkingLotInfo) {
 							isRequestInProgress = true;

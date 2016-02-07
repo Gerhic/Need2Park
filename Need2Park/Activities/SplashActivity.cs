@@ -5,12 +5,15 @@ using Android.Content;
 using Android.Preferences;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Android.Widget;
+using Android.Locations;
 
 namespace Need2Park
 {
 	[Activity (Theme = "@style/Theme.Splash", ScreenOrientation = Android.Content.PM.ScreenOrientation.Portrait, MainLauncher = true)]
 	public class SplashActivity : Activity
 	{
+
 		protected override async void OnCreate (Bundle savedInstanceState)
 		{
 			base.OnCreate (savedInstanceState);
