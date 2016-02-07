@@ -108,7 +108,7 @@
     <Compile Include="Views\LoaderView.cs" />
     <Compile Include="Views\ParkingLotLabel.cs" />
     <Compile Include="Views\LocationView.cs" />
-    <Compile Include="Activities\MapActivity.cs" />
+    <Compile Include="Activities\TermsActivity.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />

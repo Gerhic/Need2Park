@@ -14,7 +14,12 @@ namespace Need2Park
 
 		public static readonly Color LightColor = new Color (233, 233, 233);
 
-		public static readonly Color LightColorDim = new Color (225, 225, 225);
+		public static readonly Color LightColorDim = new Color (226, 226, 226);
+
+		public static readonly Color GreenColor = new Color (43, 196, 16);
+
+		public static readonly Color LightBackground = new Color (233, 233, 233);
+
 	}
 
 }

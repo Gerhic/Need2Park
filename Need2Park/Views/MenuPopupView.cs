@@ -60,7 +60,8 @@ namespace Need2Park
 			loginButton.Click += OnLoginClick;
 
 			infoButton = new MenuButton (activity);
-			infoButton.Text = Strings.Info;
+			infoButton.Text = Strings.AboutUs;
+			infoButton.Click += HandleInfoClick;
 
 			historyButton = new MenuButton (activity);
 			historyButton.Text = Strings.History;
@@ -237,6 +238,13 @@ namespace Need2Park
 				container.Frame.W - 2 * Sizes.MenuButtonPadding,
 				Sizes.UserNameLabelHeight
 			);
+		}
+
+		void HandleInfoClick (object sender, System.EventArgs e)
+		{
+			Intent infoIntent = new Intent (activity, typeof(InfoActivity));
+			infoIntent.AddFlags (ActivityFlags.ClearTop);
+			activity.StartActivity (infoIntent);
 		}
 	}
 }
