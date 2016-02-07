@@ -43,11 +43,11 @@ namespace Need2Park
 			}
 
 			if (json.ContainsKey (UserInfo.NAME)) {
-				response.Name = json [UserInfo.SESSIONID];
+				response.Name = json [UserInfo.NAME];
 			}
 
-			if (json.ContainsKey (EMAIL)) {
-				response.email = json [EMAIL];
+			if (json.ContainsKey (UserInfo.EMAIL)) {
+				response.email = json [UserInfo.EMAIL];
 			}
 
 //			if (!response.IsOk) {

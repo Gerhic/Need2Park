@@ -32,11 +32,13 @@ namespace Need2Park
 				ISharedPreferences prefs = PreferenceManager.GetDefaultSharedPreferences (this); 
 				var name = prefs.GetString (UserInfo.NAME, string.Empty);
 				var sessionId = prefs.GetString (UserInfo.SESSIONID, string.Empty);
+//				var email = prefs.GetString (UserInfo.EMAIL, string.Empty);
 
 				if (sessionId != string.Empty) {
 					LoginState.ActiveUser = new UserInfo {
 						Name = name,
-						SessionId = sessionId
+						SessionId = sessionId,
+//						Email = email,
 					};
 				}
 

@@ -7,6 +7,7 @@ namespace Need2Park
 	{
 		public const string SESSIONID = "sessionId";
 		public const string NAME = "name";
+		public const string EMAIL = "email";
 
 		public string SessionId { get; set; }
 		public string Name { get; set; }
